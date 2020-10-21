@@ -14,9 +14,14 @@ public class QuickStartEventsConsumer {
 	@Value(value = "${kafka.groupId}")
 	private String groupId;
     
-	@KafkaListener(topics = "${kafka.topicName}", groupId = "${kafka.groupId}")
-	public void listenGroupFoo(String message) {
+	@KafkaListener(topics = "${kafka.topicName}", groupId = "${kafka.groupId}", containerFactory = "kafkaListenerContainerFactory")
+	public void listenGroupFoo(String message) throws InterruptedException {
 		log.info("Received Message in group {}: {}", groupId, message);
+//		log.info("Processing...");
+//		long timeout = Math.round(Math.random() * 10000);
+//		timeout = timeout < 1000 ? timeout * 10 : timeout;
+//		Thread.sleep(timeout);
+//		log.info("Finished in {} miliseconds!", timeout);
 	}
 	
 }
